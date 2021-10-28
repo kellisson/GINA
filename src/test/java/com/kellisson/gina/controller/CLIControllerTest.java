@@ -2,24 +2,28 @@ package com.kellisson.gina.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.kellisson.gina.useCase.InputData;
 
 public class CLIControllerTest {
 
-	@Test
-	public void initCommandTest() {
-		String command = "gina init";
+	@ParameterizedTest
+	@ValueSource(strings = {"init","add","commit","push","pull","diff","checkout"})
+	public void validCommandsTest(String command) {
 		Assertions.assertNotNull(CLIController.getCommand(command));
-		InputData inputData = CLIController.getInputData(command);
-		Assertions.assertEquals("init", inputData.getCommand());
 	}
-
+	
+	@ParameterizedTest
+	@ValueSource(strings = {"init","add","commit","push","pull","diff","checkout"})
+	public void validCommandValuesTest(String command) {
+		InputData inputData = CLIController.getInputData(command);
+		Assertions.assertEquals(command, inputData.getCommand());
+	}
+	
 	@Test
 	public void invalidCommandTest() {
-		String command = null;
-		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			CLIController.getCommand(command);
-		});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> CLIController.getCommand(null));
 	}
 }
