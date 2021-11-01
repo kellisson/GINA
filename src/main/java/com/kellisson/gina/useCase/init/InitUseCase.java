@@ -1,5 +1,7 @@
 package com.kellisson.gina.useCase.init;
 
-public class InitUseCase {
+import com.kellisson.gina.useCase.UseCase;
+
+public class InitUseCase implements UseCase {
 
 }

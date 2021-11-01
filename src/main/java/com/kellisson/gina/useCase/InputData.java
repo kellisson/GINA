@@ -1,15 +1,8 @@
 package com.kellisson.gina.useCase;
 
-public class InputData {
+public interface InputData {
 
-	private String command;
+	public String getCommand();
 
-	public String getCommand() {
-		return command;
-	}
-
-	public void setCommand(String command) {
-		this.command = command;
-	}
-
+	public void setCommand(String command);
 }
