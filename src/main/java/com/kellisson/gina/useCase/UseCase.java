@@ -1,5 +1,6 @@
 package com.kellisson.gina.useCase;
 
-public interface UseCase {
+public interface UseCase<T> {
 
+	void execute(T inputData);
 }

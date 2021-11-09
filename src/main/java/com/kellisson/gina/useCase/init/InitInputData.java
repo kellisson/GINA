@@ -1,19 +1,15 @@
 package com.kellisson.gina.useCase.init;
 
-import com.kellisson.gina.useCase.InputData;
+public class InitInputData {
 
-public class InitInputData implements InputData {
+	private String directory;
 
-	private String command;
-
-	@Override
-	public String getCommand() {
-		return command;
+	public String getDirectory() {
+		return directory;
 	}
 
-	@Override
-	public void setCommand(String command) {
-		this.command = command;
+	public void setDirectory(String directory) {
+		this.directory = directory;
 	}
 
 }
