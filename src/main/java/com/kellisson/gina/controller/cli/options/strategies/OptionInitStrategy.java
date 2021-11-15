@@ -5,17 +5,22 @@ import com.kellisson.gina.useCase.init.InitInputData;
 import com.kellisson.gina.useCase.init.InitUseCase;
 
 import picocli.CommandLine.Command;
-import picocli.CommandLine.Parameters;
+import picocli.CommandLine.Option;
 
 @Command(name = "init")
 public class OptionInitStrategy implements UseCaseStrategy<InitInputData, InitUseCase>, Runnable {
 	
-	@Parameters(paramLabel = "directory", description = "local do repositório")
-	public String directory;
+	private InitInputData initInputData;
+	
+	@Option(names = {"-b", "--initial-branch"}, description = "nome do branch inicial do repositório")
+	private String initialBranch;
+	
+	@Option(names = {"-d", "--location"}, description = "local do repositório")
+	private String directory;
 	
 	@Override
 	public InitInputData getInputData() {
-		return new InitInputData();
+		return initInputData;
 	}
 
 	@Override
@@ -25,9 +30,31 @@ public class OptionInitStrategy implements UseCaseStrategy<InitInputData, InitUs
 
 	@Override
 	public void run() {
-		InitInputData initInputData = getInputData(); 
+		this.initInputData = createInputData();
+		getUseCase().execute(getInputData());
+	}
+
+	private InitInputData createInputData() {
+		InitInputData initInputData = new InitInputData();
 		initInputData.setDirectory(directory);
-		getUseCase().execute(initInputData);
+		initInputData.setInitialBranch(initialBranch);
+		return initInputData;
+	}
+
+	public String getInitialBranch() {
+		return initialBranch;
+	}
+
+	public void setInitialBranch(String initialBranch) {
+		this.initialBranch = initialBranch;
+	}
+
+	public String getDirectory() {
+		return directory;
+	}
+
+	public void setDirectory(String directory) {
+		this.directory = directory;
 	}
 
 }
